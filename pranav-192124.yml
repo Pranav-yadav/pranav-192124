@@ -1,0 +1,32 @@
+---
+  # Pranav-192124 - Basic Tasks
+  - name: Pranav-192124 - Installing nginx, create directories and add user, uninstall nano
+    hosts: server1
+    become: yes
+    become_user: root
+    tasks:
+      - name: Update apt packages
+        apt:
+          update_cache: yes
+      
+      - name: Installing nginx
+        apt:
+          name: nginx
+          state: present
+      
+      - name: Create User 'pranav-192124'
+        user:
+          name: pranav-192124
+          group: users
+          shell: /bin/bash
+      
+      - name: Create Directory 192124 in /home
+        file:
+          path: /home/192124
+          state: directory
+          group: users
+      
+      - name: Uninstalling nano
+        apt:
+          name: nano
+          state: absent
